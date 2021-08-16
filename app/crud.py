@@ -36,3 +36,15 @@ def create_author(db: Session, author: schemas.AuthorCreate):
     db.commit()
     db.refresh(db_author)
     return db_author
+
+def delete_author(db: Session, author_id: int):
+    db_author = db.query(models.Author).filter_by(id=author_id).first()
+    db.delete(db_author)
+    db.commit()
+    return db_author
+
+def delete_book(db: Session, book_id: int):
+    db_book = db.query(models.Book).filter_by(id=book_id).first()
+    db.delete(db_book)
+    db.commit()
+    return db_book

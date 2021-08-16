@@ -83,3 +83,17 @@ async def read_author_by_name(name: str, db: Session = Depends(get_db)):
 async def read_authors(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     authors = crud.get_authors(db, skip=skip, limit=limit)
     return authors
+
+@app.delete("/books/{book_id}", response_model=schemas.Book)
+async def remove_book(book_id: int, db: Session = Depends(get_db)):
+    db_book = crud.delete_book(db=db, book_id=book_id)
+    if db_book is None:
+        raise HTTPException(status_code=404, detail="Book not found!")
+    return db_book
+
+@app.delete("/authors/{author_id}", response_model=schemas.Author)
+async def remove_author(author_id: int, db: Session = Depends(get_db)):
+    db_author = crud.delete_author(db=db, author_id=author_id)
+    if db_author is None:
+        raise HTTPException(status_code=404, detail="Author not found!")
+    return db_author
