@@ -12,7 +12,7 @@ class AuthorBase(BaseModel):
 # Properties to receive on author creation
 class AuthorCreate(AuthorBase):  
     name: str
-    books: List[Book] = []
+    books_id: List[int] = []
 
 # Properties to receive on author update
 class AuthorUpdate(AuthorBase):
