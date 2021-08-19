@@ -17,7 +17,7 @@ async def create_authors(
         book_db = db.query(models.Book).filter(models.Book.id == author.books_id[i]).first()
 
         if book_db is None:
-            raise HTTPException(status_code=404, detail=f"Book ID = {i+1} not found!")
+            raise HTTPException(status_code=404, detail=f"Book ID = {author.books_id[i]} not found!")
         else:
             author.books.append(book_db)
 
@@ -76,7 +76,7 @@ async def alter_author(
     for i in range(len(author.books_id)):
         book_db = db.query(models.Book).filter(models.Book.id == author.books_id[i]).first()
         if book_db is None:
-            raise HTTPException(status_code=404, detail=f"Book ID = {i+1} not found!")
+            raise HTTPException(status_code=404, detail=f"Book ID = {author.books_id[i]} not found!")
         else:
             author.books.append(book_db)
 
