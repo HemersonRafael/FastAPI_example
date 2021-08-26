@@ -5,12 +5,12 @@ from app import models, schemas
 
 
 def get_author(db: Session, author_id: int):
-    return db.query(models.Author).filter(models.Author.id == author_id).first()
+    return db.query(models.Author).filter_by(id=author_id).first()
 
 def get_author_by_name(db: Session, name: str):
-    return db.query(models.Author).filter(models.Author.name == name).first()
+    return db.query(models.Author).filter_by(name=name).all()
 
-def get_authors(db: Session, skip: int = 0, limit: int =100):
+def get_authors(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Author).offset(skip).limit(limit).all()
 
 def create_author(db: Session, author: schemas.AuthorCreate):
@@ -35,10 +35,10 @@ def update_author(db: Session, db_author: schemas.AuthorInDB, author: schemas.Au
 
 
 def get_book(db: Session, book_id: int):
-    return db.query(models.Book).filter(models.Book.id == book_id).first()
+    return db.query(models.Book).filter_by(id=book_id).first()
 
 def get_book_by_title(db: Session, title: str):
-    return db.query(models.Book).filter(models.Book.title == title).first()
+    return db.query(models.Book).filter_by(title=title).all()
 
 def get_books(db: Session, skip: int = 0, limit: int =100):
     return db.query(models.Book).offset(skip).limit(limit).all()

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
@@ -34,24 +34,14 @@ async def read_author(
 
     return db_author
 
-@router.get("/authors/?name={name}", response_model=schemas.Author)
-async def read_author_by_name(
-    name: str, db: Session = Depends(dependencies.get_db)
-):
-    db_author = crud.get_author_by_name(db=db, name=name)
-
-    if db_author is None:
-        raise HTTPException(status_code=404, detail="There is no Author with the name!")
-
-    return db_author
-
 @router.get("/authors/", response_model=List[schemas.Author])
 async def read_authors(
-    skip: int = 0, limit: int = 100, db: Session = Depends(dependencies.get_db)
+   name: Optional[str] = None, skip: int = 0, limit: int = 100, db: Session = Depends(dependencies.get_db)
 ):
-    authors = crud.get_authors(db, skip=skip, limit=limit)
-
-    return authors
+    if name:
+        return crud.get_author_by_name(db=db, name=name)
+    
+    return crud.get_authors(db=db, skip=skip, limit=limit)
 
 @router.delete("/authors/{author_id}", response_model=schemas.Author)
 async def remove_author(

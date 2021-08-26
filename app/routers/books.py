@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
@@ -26,24 +26,14 @@ async def read_book(
 
     return db_book
 
-@router.get("/books/?title={title}", response_model=schemas.Book)
-async def read_book_by_title(
-    title: str, db: Session = Depends(dependencies.get_db)
-):
-    db_book = crud.get_book_by_title(db, title=title)
-
-    if db_book is None:
-        raise HTTPException(status_code=404, detail="There is no book with the title!")
-
-    return db_book
-
 @router.get("/books/", response_model=List[schemas.Book])
 async def read_books(
-    skip: int = 0, limit: int = 100, db: Session = Depends(dependencies.get_db)
+    title: Optional[str] = None, skip: int = 0, limit: int = 100, db: Session = Depends(dependencies.get_db)
 ):
-    books = crud.get_books(db, skip=skip, limit=limit)
+    if title:
+        return crud.get_book_by_title(db, title=title)
 
-    return books
+    return crud.get_books(db, skip=skip, limit=limit)
 
 @router.delete("/books/{book_id}", response_model=schemas.Book)
 async def remove_book(
