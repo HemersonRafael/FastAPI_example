@@ -7,8 +7,8 @@ from app.schemas.book import BookCreate, BookUpdate
 
 
 class CRUDBook(CRUDBase[Book, BookCreate, BookUpdate]):
-    def get_books_by_title(
-        db: Session, title: str,  skip: int = 0, limit: int = 100
+    def get_multi_by_title(
+        self, db: Session, title: str,  skip: int = 0, limit: int = 100
     ) -> List[Book]:
         return (
             db.query(Book)
@@ -17,3 +17,6 @@ class CRUDBook(CRUDBase[Book, BookCreate, BookUpdate]):
             .limit(limit)
             .all()
         )
+
+
+book = CRUDBook(Book)

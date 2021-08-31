@@ -7,8 +7,8 @@ from app.schemas.author import AuthorCreate, AuthorUpdate
 
 
 class CRUDAuthor(CRUDBase[Author, AuthorCreate, AuthorUpdate]):
-    def get_authors_by_name(
-        db: Session, name: str,  skip: int = 0, limit: int = 100
+    def get_multi_by_name(
+        self, db: Session, name: str,  skip: int = 0, limit: int = 100
     ) -> List[Author]:
         return (
             db.query(Author)
@@ -17,3 +17,6 @@ class CRUDAuthor(CRUDBase[Author, AuthorCreate, AuthorUpdate]):
             .limit(limit)
             .all()
         )
+
+
+author = CRUDAuthor(Author)
