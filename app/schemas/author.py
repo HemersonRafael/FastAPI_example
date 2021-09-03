@@ -14,9 +14,11 @@ class AuthorCreate(AuthorBase):
     name: str
     books_id: List[int] = []
 
+
 # Properties to receive on author update
 class AuthorUpdate(AuthorBase):
     pass
+
 
 # Properties shared by models stored in DB
 class AuthorInDBBase(AuthorBase):
@@ -27,6 +29,7 @@ class AuthorInDBBase(AuthorBase):
     class Config:
         orm_mode = True
 
+
 # Properties to return to client
 class Author(AuthorInDBBase):
     pass
@@ -35,5 +38,3 @@ class Author(AuthorInDBBase):
 # Properties properties stored in DB
 class AuthorInDB(AuthorInDBBase):
     pass
-
-
