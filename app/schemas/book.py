@@ -7,14 +7,17 @@ class BookBase(BaseModel):
     title: str
     description: Optional[str] = None
 
+
 # Properties to receive on book creation
 class BookCreate(BookBase):  
     title: str
     description: str
 
+
 # Properties to receive on book update
 class BookUpdate(BookBase):
     pass
+
 
 # Properties shared by models stored in DB
 class BookInDBBase(BookBase):
@@ -23,6 +26,7 @@ class BookInDBBase(BookBase):
 
     class Config:
         orm_mode = True
+
 
 # Properties to return to client
 class Book(BookInDBBase):

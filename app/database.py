@@ -13,7 +13,7 @@ dialect = settings.DATABASE_CONFIG.DIALECT
 driver = settings.DATABASE_CONFIG.DRIVER
 
 
-SQLALCHEMY_DATABASE_URI = f"{dialect}+{driver}://{user}:{password }@{host}:{port}/{db}"
+SQLALCHEMY_DATABASE_URI = f"{dialect}+{driver}://{user}:{password}@{host}:{port}/{db}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
