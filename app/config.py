@@ -4,7 +4,7 @@ from pydantic import BaseSettings, PostgresDsn
 
 class Settings(BaseSettings):
     
-    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
+    SQLALCHEMY_DATABASE_URI: PostgresDsn
     
     class Config:
         env_file = ".env"
