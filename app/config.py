@@ -1,19 +1,11 @@
-from pydantic import BaseSettings, BaseModel
+from typing import Optional
+from pydantic import BaseSettings, PostgresDsn
 
-
-class DatabaseConfig (BaseModel):
-    DIALECT: str = "postgresql"
-    DRIVER: str = "psycopg2"
 
 class Settings(BaseSettings):
     
-    DATABASE_CONFIG : DatabaseConfig = DatabaseConfig()
-    POSTGRES_HOST: str
-    POSTGRES_PORT: str
-    POSTGRES_USER: str
-    POSTGRES_PASS: str
-    POSTGRES_DB: str
-
+    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
+    
     class Config:
         env_file = ".env"
         env_file_encoding = 'utf-8'
