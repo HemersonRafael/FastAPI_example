@@ -34,11 +34,7 @@ This document includes instructions to get the project running in development.
    ```bash
    cp .env.sample .env
    ```
-   * **POSTGRES_HOST** -> The PostgreSQL hostname that FastAPI example. will try to connect.
-   * **POSTGRES_PORT** -> The PostgreSQL port that FastAPI example willtry to connect to.
-   * **POSTGRES_USER** -> The PostgreSQL username used by FastAPI example.
-   * **POSTGRES_PASS** -> The PostgreSQL password to be set on the user above.
-   * **POSTGRES_DB** -> The PostgreSQL  databse used by FastAPI example.
+   * **SQLALCHEMY_DATABASE_URI** -> The URI that FastAPI example. will try to connect.
 <br/><br/>
 
 3. Spawn a shell with the virtualenv activated:
