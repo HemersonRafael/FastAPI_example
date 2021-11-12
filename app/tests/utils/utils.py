@@ -1,11 +1,18 @@
+import time
 import random
 import string
 
-from fastapi.testclient import TestClient
+
+def current_milli_time():
+    return round(time.time() * 1000)
 
 
-def random_lower_string() -> str:
-    return "".join(random.choices(string.ascii_lowercase, k=32))
+random.seed(current_milli_time())
+
+
+def random_lower_string(num: int = 32) -> str:
+    return "".join(random.choices(string.ascii_lowercase, k=num))
+
 
 def random_int_number() -> int:
-    return random.randint(0,3)
+    return random.randint(1,3)
