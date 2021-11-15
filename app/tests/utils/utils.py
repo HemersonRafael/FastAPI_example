@@ -15,4 +15,4 @@ def random_lower_string(num: int = 32) -> str:
 
 
 def random_int_number() -> int:
-    return random.randint(1,3)
+    return random.randint(0,3)

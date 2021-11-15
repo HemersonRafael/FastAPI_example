@@ -1,8 +1,6 @@
-from os import name
 from sqlalchemy.orm import Session
 
 from app import crud
-from app.crud import author
 from app.schemas import AuthorCreate, AuthorUpdate
 from app.tests.utils.author import create_random_author
 from app.tests.utils.utils import random_lower_string, random_int_number
@@ -28,7 +26,8 @@ def test_update_author(db:  Session) -> None:
     name = random_lower_string()
     books_id = []
     books = []
-    for x in range(random_int_number()):
+    num = random_int_number()
+    for x in range(num):
         book_in = create_random_book(db=db)
         books.append(book_in)
         books_id.append(book_in.id)
@@ -40,7 +39,6 @@ def test_update_author(db:  Session) -> None:
     author2 = crud.author.update(db=db, db_obj= author1, obj_in=author_in)
     assert author1.name == author2.name
     assert author2.books == []
-    assert len(author2.books) != len(books)
 
 
 def test_delete_author(db: Session) -> None:
