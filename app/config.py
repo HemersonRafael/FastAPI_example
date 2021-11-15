@@ -1,5 +1,9 @@
-from typing import Optional
+import logging
+from functools import lru_cache
 from pydantic import BaseSettings, PostgresDsn
+
+
+log = logging.getLogger("uvicorn")
 
 
 class Settings(BaseSettings):
@@ -9,5 +13,10 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         env_file_encoding = 'utf-8'
+        case_sensitive = True
 
-settings =  Settings(_env_file='.env', _env_file_encoding='utf-8')
+
+@lru_cache()
+def get_settings() -> Settings:
+    log.info("Loading config settings from the environment...")
+    return Settings()
