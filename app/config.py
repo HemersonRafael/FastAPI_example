@@ -1,21 +1,22 @@
-from pydantic import BaseSettings, BaseModel
+import logging
+from functools import lru_cache
+from pydantic import BaseSettings, PostgresDsn
 
 
-class DatabaseConfig (BaseModel):
-    DIALECT: str = "postgresql"
-    DRIVER: str = "psycopg2"
+log = logging.getLogger("uvicorn")
+
 
 class Settings(BaseSettings):
     
-    DATABASE_CONFIG : DatabaseConfig = DatabaseConfig()
-    POSTGRES_HOST: str
-    POSTGRES_PORT: str
-    POSTGRES_USER: str
-    POSTGRES_PASS: str
-    POSTGRES_DB: str
-
+    SQLALCHEMY_DATABASE_URI: PostgresDsn
+    
     class Config:
         env_file = ".env"
         env_file_encoding = 'utf-8'
+        case_sensitive = True
 
-settings =  Settings(_env_file='.env', _env_file_encoding='utf-8')
+
+@lru_cache()
+def get_settings() -> Settings:
+    log.info("Loading config settings from the environment...")
+    return Settings()
